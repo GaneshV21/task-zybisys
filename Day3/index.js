@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Day3/index.js
 //Validation for Name and Age
+=======
+//Validation for Name and age
+>>>>>>> ba34b2fcfa017c18d7d54ee1d4a1cd7afcf74c51:Day 2/index.js
 const express= require('express');
 const app= express();
 const bodyParser= require('body-parser');
