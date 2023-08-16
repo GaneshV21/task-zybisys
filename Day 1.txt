@@ -1,0 +1,160 @@
+App.js
+___________________________
+
+import './App.css';
+import Capital from './Capital';
+import Array from './Array';
+import FormProduct from './FormProduct';
+import FormValidate from './FormValidate';
+
+function App() {
+  return (
+    <>
+    <Capital data="ganesh"/>
+    <Array arr={[1,2,4,5,8,2,4,5,6,4,3,6,3,3,3,21]}/>
+    <FormProduct/>
+    <FormValidate/>
+    
+    </>
+  
+  )
+}
+
+export default App;
+
+
+
+index.js
+____________________________
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+
+
+//1.Take a string as props and return the string in uppercase
+
+Capital.js
+___________________________
+
+function Capital(props){
+    return (
+        <h1>My Name Is {props.data.toUpperCase()}</h1>
+    )
+}
+export default Capital;
+
+
+
+//2.Take a array as a props and filter out even number from the array
+
+Array.js
+___________________________
+
+function Array(props){
+    return (
+        <ul>
+            {props.arr.map((item)=>{
+            if(item%2==0){
+            return(
+                <li>{item}</li>
+            )
+            }
+            })}       
+        </ul>       
+    )   
+}
+export default Array;
+
+
+
+
+//3. create a form which should accept 2 numbers from user and display their product 
+
+FormProduct.js
+___________________________
+
+import React from 'react';
+function FormProduct(){
+    const ip1=React.createRef();
+    const ip2=React.createRef();
+    const ip3=React.createRef();
+
+
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        ip3.current.innerText=(parseInt(ip1.current?.value||1) * parseInt(ip2.current?.value||1))
+    }
+    return (
+        <>
+        <form onSubmit={handleSubmit}>
+            Input 1 : <input type="number" name="ip1"  ref={ip1}></input><br/>
+            Input 2 : <input type="number" name="ip2" ref={ip2}></input><br/>
+            <p className='answer' ref={ip3}></p>
+            <button type="submit">Submit</button>
+        
+        </form>
+        </>
+    )
+
+}
+export default FormProduct;
+
+
+/*4.create a form which should accept name and password you have to validate whether 
+the name and password are not empty and password should be min 5 character in length*/
+
+FormValidate.js
+____________________________
+
+
+import React from 'react';
+function FormValidate(){
+    const ip1=React.createRef();
+    const ip2=React.createRef();
+    const validate=(e)=>{
+        e.preventDefault();
+        const input1=ip1.current.value;
+        const input2=ip2.current.value;
+        if(input2.length<5 && input1.length>1){
+            alert("please enter a valid password");
+        }
+        else if(input1.length>0 && input2.length>5  ){
+            alert("Successfully validated")
+        }
+        else{
+            alert("please enter")
+        }
+
+    }
+    return (
+        <form onSubmit={validate}>
+            Name : <input type="text" name="name" ref={ip1}></input><br/>
+            Password : <input type="password" name="pass" ref={ip2}></input><br/>
+            <button type="submit">Submit</button>
+        
+        </form>
+    )
+}
+export default FormValidate;
+
+
+
+
+
+
