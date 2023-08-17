@@ -1,0 +1,38 @@
+<!-- 1.create an array of 5 objects in ejs file which has properties like name and salary and then using
+ejs file print all the names in uppercase and display the name and salary in form of a html table -->
+
+<h1>Names in Capital Letter with salary</h1>
+    <table border="2">
+        <tr>
+            <td>Name</td>
+            <td>Salary</td>
+        </tr>
+        <% arrObj.forEach((item)=>{%>
+            <tr>
+                <td><%=item.name.toUpperCase()%></td>
+                <td><%=item.salary%></td>
+            </tr>
+        <%})%>
+    </table>
+
+<!-- 2.create an array in javascript file and print the sum of all elements of that array in ejs template -->
+
+<h1>Sum of digits</h1>
+<% var sum = 0 %>
+<%arr.forEach((item)=>{%>
+    <%sum+=item%>
+    <%})%>
+<%=sum%>
+
+
+<!-- 3.Create a route in express that process which day of the week it is through Date class and then sound
+this result to the ejs file with either "it is a weekend." or "its not a weekend" depending on the day -->
+
+<h1>Date</h1>
+<% var a=date.toString()%>
+<% var b; %>
+<% if(a[0]==='S'){b="Its a Weekend"} else{b="Its a WeekDay"}%>
+<%=a%><br />
+<%=b%>
+
+
