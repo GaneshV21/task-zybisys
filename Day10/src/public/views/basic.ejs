@@ -1,0 +1,14 @@
+<h1>TODO LIST</h1>
+<form method="post" action="/">
+    <input type="text" name="todo" id="todo" ><br><br>
+    <input type="submit" value="Add Item" name="btn" id="btn">
+</form>
+<div>
+    <%arr.forEach((item)=>{%>
+        <div>
+            <p><%=item.todo%></p>
+            <a href="/edit/<%=item._id%>">Edit</a>
+            <a href="/delete/<%=item._id%>">Delete</a>
+        </div>
+    <%})%>
+</div>
