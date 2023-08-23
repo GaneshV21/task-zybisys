@@ -8,7 +8,6 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId
 
 
-
 const Client = new MongoClient("mongodb://0.0.0.0:27017/Ganesh")
 Client.connect().then(()=>{
     console.log("connected");
@@ -32,6 +31,7 @@ app.get('/', (req, resp) => {
     });
 })
 app.post('/', (req, res) => {
+
         Client.connect().then(()=>{
             coll.insertOne({todo:req.body.todo}).then(()=>{
                 console.log("Inserted");
@@ -41,6 +41,18 @@ app.post('/', (req, res) => {
     
     
 })
+
+app.post('/update/:id', (req, res) => {
+    var id=new ObjectId(req.params.id);
+    Client.connect().then(()=>{
+        coll.updateOne({_id:id},{$set:{todo:req.body.todo}}).then(()=>{
+            console.log(id);
+            res.redirect('/');
+        })
+    });
+
+
+})
 app.get('/delete/:id', (req, res) => {
     coll.deleteOne({_id:new ObjectId(req.params.id)}).then(()=>{
         res.redirect('/');
@@ -48,25 +60,29 @@ app.get('/delete/:id', (req, res) => {
 })
 
 
-app.get('/edit/:id',(req, res) => {
-        var id = req.params.id
-        var o_id= new ObjectId(id)
-        coll.find({_id:o_id}).toArray().then((data)=>{
-            res.render("edit",{data:data})
-        }).catch((err)=>{
-            console.log(err)
-        })
-        
-    });
 
-app.post('/edit',(req,res)=>{
-    coll.updateOne({_id:new ObjectId(req.body._id)},{$set:{todo:req.body.todo}}).then(()=>{
-        res.redirect('/')
-            }).catch((err)=>{
-                console.log(err)
-            })
+//not needed
+
+// app.get('/edit/:id',(req, res) => {
+//         var id = req.params.id
+//         var o_id= new ObjectId(id)
+//         coll.find({_id:o_id}).toArray().then((data)=>{
+//             res.render("edit",{data:data})
+//         }).catch((err)=>{
+//             console.log(err)
+//         })
+        
+//     });
+
+// app.post('/edit',(req,res)=>{
+//     coll.updateOne({_id:new ObjectId(req.body._id)},{$set:{todo:req.body.todo}}).then(()=>{
+//         res.redirect('/')
+//             }).catch((err)=>{
+//                 console.log(err)
+//             })
             
-        })
+//         })
+
 
 app.listen(8000,() => {
     console.log("server listening");

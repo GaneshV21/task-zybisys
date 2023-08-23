@@ -1,5 +1,5 @@
 <h1>TODO LIST</h1>
-<form method="post" action="/">
+<form method="post" action="/" id="myform">
     <input type="text" name="todo" id="todo" ><br><br>
     <input type="submit" value="Add Item" name="btn" id="btn">
 </form>
@@ -7,8 +7,30 @@
     <%arr.forEach((item)=>{%>
         <div>
             <p><%=item.todo%></p>
-            <a href="/edit/<%=item._id%>">Edit</a>
+            <input type="hidden" value="<%=item._id%>" name="_id" id="_id">
+
+            <!-- <a href="/edit/<%=item._id%>">Edit</a> -------  not needed    -->
+
+            <input type="submit" value="Edit" id="edit" onclick="editor(this)">
             <a href="/delete/<%=item._id%>">Delete</a>
         </div>
     <%})%>
 </div>
+
+<script>
+    var edit=document.getElementById("edit")
+    var todo=document.getElementById("todo")
+    var btn=document.getElementById("btn")
+    var form=document.getElementById("myform")
+    function editor(data){
+        if(edit.value=="Edit"){
+            btn.value="update"
+            todo.value=data.parentNode.firstElementChild.innerHTML
+            form.action = `/update/${data.parentNode.firstElementChild.nextElementSibling.value}`;
+        }
+        else{
+            btn.value="Add Item"
+            form.action = "/";
+        }
+    }
+</script>
