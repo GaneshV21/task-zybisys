@@ -1,3 +1,13 @@
+/*
+    For storing blogs - blogdisplay database
+    For storing comment - comments database
+    For storing users - store_users database - only these users can login to the website and
+    put a comment
+    admin module - admin can edit title content and uploads images in the database
+    
+*/
+
+
 const express=require('express')
 const app = express()
 const bodyParser = require('body-parser')
