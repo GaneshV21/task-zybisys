@@ -29,7 +29,7 @@ const coll=DB.collection('blogdisplay')
 const coll1=DB.collection('comments')
 const coll2=DB.collection('store_users');
 
-app.use(express.static('.views/uploads'))
+app.use(express.static('src/public/uploads'))
 
 app.get('/:id?', (req, res) =>{
     const id=req.params.id
@@ -112,7 +112,7 @@ app.post('/add', (req, res)=>{
 
 const multerStorage=multer.diskStorage({
         destination:(req,file,cb)=>{
-            cb(null,path.join(__dirname, 'src/public/views', 'uploads'))
+            cb(null,path.join(__dirname, 'src/public', 'uploads'))
         },
         filename:(req,file,cb)=>{
             cb(null,`${file.originalname}`)
@@ -122,7 +122,7 @@ const multerStorage=multer.diskStorage({
 const upload = multer({storage:multerStorage})
 
 app.post('/addpage',upload.single("addfile"),(req,res)=>{
-    coll.insertOne({title:req.body.title,content:req.body.content,image:req.file.path}).then(()=>{
+    coll.insertOne({title:req.body.title,content:req.body.content,image:req.file.originalname}).then(()=>{
         console.log("inserted successfully")
         res.send("file uploaded")
     })
